@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Personal Video Downloader</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="container">
+    <h1>Personal Video Downloader</h1>
+    <div class="tabs">
+      <button onclick="selectTab('tiktok')" id="tab-tiktok" class="active">TikTok</button>
+      <button onclick="selectTab('instagram')" id="tab-instagram">Instagram</button>
+      <button onclick="selectTab('facebook')" id="tab-facebook">Facebook</button>
+    </div>
+    <div id="inputArea">
+      <input type="text" id="videoUrl" placeholder="Paste video URL here" />
+      <button onclick="downloadVideo()">Download</button>
+    </div>
+    <div id="result" class="hidden">
+      <p>✅ Video found!</p>
+      <a id="downloadLink" href="#" download target="_blank">Click here to download</a>
+    </div>
+    <p class="note">* Supports only <strong>public</strong> videos from TikTok, Instagram, Facebook.</p>
+  </div>
+  <script src="script.js"></script>
+</body>
+</html>
