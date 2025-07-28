@@ -1,27 +1,38 @@
 let currentSource = 'tiktok';
-function selectTab(src) {
-  currentSource = src;
-  document.getElementById('tab-tiktok').classList.toggle('active', src==='tiktok');
-  document.getElementById('tab-instagram').classList.toggle('active', src==='instagram');
-  document.getElementById('tab-facebook').classList.toggle('active', src==='facebook');
-  document.getElementById('result').classList.add('hidden');
-  document.getElementById('videoUrl').value = '';
+function selectTab(source) {
+  currentSource = source;
+  document.getElementById('tab-tiktok').classList.toggle('active', source === 'tiktok');
+  document.getElementById('tab-instagram').classList.toggle('active', source === 'instagram');
+  document.getElementById('tab-facebook').classList.toggle('active', source === 'facebook');
 }
-function downloadVideo(){
+function redirectToDownloader() {
   const url = document.getElementById('videoUrl').value.trim();
-  const resultBox = document.getElementById('result');
-  const link = document.getElementById('downloadLink');
-  resultBox.classList.add('hidden');
-  if(currentSource==='tiktok' && url.includes('tiktok.com')) {
-    const apiEndpoint = `https://api.snaptik.app/redirect?url=${encodeURIComponent(url)}`;
-    // Directly link the API redirect link
-    link.href = apiEndpoint;
-    resultBox.classList.remove('hidden');
-  } else if(currentSource==='instagram' && url.includes('instagram.com')) {
-    alert('Instagram downloader API integration needed.');
-  } else if(currentSource==='facebook' && url.includes('facebook.com')) {
-    alert('Facebook downloader API integration needed.');
-  } else {
-    alert('Invalid URL for selected source');
+  if (!url) {
+    alert('Please paste a video URL first!');
+    return;
   }
+  let redirectUrl = '';
+  if (currentSource === 'tiktok') {
+    if (!url.includes('tiktok.com')) {
+      alert('Please enter a valid TikTok URL.');
+      return;
+    }
+    // Trusted TikTok downloader site without ads
+    redirectUrl = 'https://snaptik.app/en?url=' + encodeURIComponent(url);
+  } else if (currentSource === 'instagram') {
+    if (!url.includes('instagram.com')) {
+      alert('Please enter a valid Instagram URL.');
+      return;
+    }
+    // Trusted Instagram downloader site without ads
+    redirectUrl = 'https://www.instadownloader.co/instagram?url=' + encodeURIComponent(url);
+  } else if (currentSource === 'facebook') {
+    if (!url.includes('facebook.com')) {
+      alert('Please enter a valid Facebook URL.');
+      return;
+    }
+    // Trusted Facebook downloader site without ads
+    redirectUrl = 'https://www.getfvid.com/facebook?url=' + encodeURIComponent(url);
+  }
+  window.open(redirectUrl, '_blank');
 }
